@@ -58,12 +58,12 @@ module Coinbase
             OpenSSL::HMAC.digest('sha256', Base64.decode64(@api_secret).strip,
                                  "#{timestamp}GET/users/self")).strip
           message[:timestamp] = timestamp
-          message[:siganture] = signature 
-          message[:key] = @api_key 
-          message[:passphrase] = @api_passphrase 
+          message[:siganture] = signature
+          message[:key] = @api_key
+          message[:passphrase] = @api_passphrase
         end
 
-        @socket.send({ type: 'subscribe', product_id: product }.to_json)
+        @socket.send(message.to_json)
       end
 
       def ping(options = {})
